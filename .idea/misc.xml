@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Agung Suhermin/StudioProjects/DanaKu/app/src/main/res/drawable/button_adapt.xml" value="0.364" />
+        <entry key="..\:/Users/Agung Suhermin/StudioProjects/DanaKu/app/src/main/res/drawable/button_pengeluaran.xml" value="0.364" />
+        <entry key="..\:/Users/Agung Suhermin/StudioProjects/DanaKu/app/src/main/res/drawable/et_custom.xml" value="0.364" />
+        <entry key="..\:/Users/Agung Suhermin/StudioProjects/DanaKu/app/src/main/res/drawable/et_pengeluaran.xml" value="0.364" />
+        <entry key="..\:/Users/Agung Suhermin/StudioProjects/DanaKu/app/src/main/res/layout/activity_add.xml" value="0.4" />
+        <entry key="..\:/Users/Agung Suhermin/StudioProjects/DanaKu/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/Agung Suhermin/StudioProjects/DanaKu/app/src/main/res/layout/content_main.xml" value="0.21041666666666667" />
+        <entry key="..\:/Users/Agung Suhermin/StudioProjects/DanaKu/app/src/main/res/layout/fragment_first.xml" value="0.264" />
+        <entry key="..\:/Users/Agung Suhermin/StudioProjects/DanaKu/app/src/main/res/layout/fragment_second.xml" value="0.4" />
+        <entry key="..\:/Users/Agung Suhermin/StudioProjects/DanaKu/app/src/main/res/menu/menu_main.xml" value="0.4" />
         <entry key="..\:/Users/oasis/Documents/App/danaku/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/oasis/Documents/App/danaku/app/src/main/res/layout/content_main.xml" value="0.10144927536231885" />
         <entry key="..\:/Users/oasis/Documents/App/danaku/app/src/main/res/layout/fragment_second.xml" value="0.10144927536231885" />

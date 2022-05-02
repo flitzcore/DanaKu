@@ -1,16 +1,24 @@
 package com.example.danaku
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        var addButton:FloatingActionButton=findViewById(R.id.fab_add)
+        addButton.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this@MainActivity, AddActivity::class.java)
+            startActivity(intent)
+        })
         var simpleList:ListView=findViewById(R.id.lv_data)
         var list= mutableListOf<ModelList>()
         simpleList.adapter=CustomAdapter(this,R.layout.list_data,list)
