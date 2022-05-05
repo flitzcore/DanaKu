@@ -11,8 +11,15 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="textview">TextView</string>
     <string name="title_activity_add_menu">AddMenu</string>
-    <string name="PEMASUKAN">PEMASUKAN</string>
-    <string name="PENGELUARAN">PENGELUARAN</string>
+    <string-array name="jangka_waktu">
+        <item>Tahun ini</item>
+        <item>Bulan ini</item>
+        <item>Minggu ini</item>
+    </string-array>
+    <string-array name="jenisData">
+        <item>Pengeluaran</item>
+        <item>Pemasukan</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
