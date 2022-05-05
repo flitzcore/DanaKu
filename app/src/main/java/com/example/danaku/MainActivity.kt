@@ -2,17 +2,20 @@ package com.example.danaku
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.danaku.Database.DBHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.sql.Types.NULL
 
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("TES782","tesss")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var addButton:FloatingActionButton=findViewById(R.id.fab_add)
@@ -24,18 +27,27 @@ class MainActivity : AppCompatActivity() {
         var list= mutableListOf<ModelList>()
         simpleList.adapter=CustomAdapter(this,R.layout.list_data,list)
 
-        list.add(ModelList("sss","pemasukan",1020,"haro"))
+       // list.add(ModelList("sss","pemasukan",1020,"haro"))
         val db = DBHelper(this, null)
 
         // below is the variable for cursor
         // we have called method to get
         // all names from our database
         // and add to name text view
-        val cursor = db.getName()
+        val dataList=db.getAllData()
+        for(i in dataList){
+            list.add(i)
+        }
+
+
+
+
+
+        //Log.d("TES782",.toString())
 
         // moving the cursor to first position and
         // appending value in the text view
-        cursor!!.moveToFirst()
+
         /*
         list.add(ModelList(
             getString(cursor.getColumnIndex(DBHelper.NAMA_COL)),
@@ -57,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         } */
 
         // at last we close our cursor
-        cursor.close()
+       // cursor.close()
 
         simpleList.setOnItemClickListener { parent:AdapterView<*>, view: View, position:Int, id:Long ->
 

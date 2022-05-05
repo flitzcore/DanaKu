@@ -1,10 +1,12 @@
 package com.example.danaku.Database
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.danaku.ModelList
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
@@ -14,7 +16,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         // below is a sqlite query, where column names
         // along with their data types is given
         val query = ("CREATE TABLE " + TABLE_NAME + " ("
-                + ID_COL + " INTEGER PRIMARY KEY, " +
+                + ID_COL + " INTEGER PRIMARY KEY AUTO INCREMENT, " +
                 NAMA_COL + " TEXT," +
                 JENIS_COL + " TEXT," +
                 DATE_COL + " TEXT," +
@@ -61,24 +63,47 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     // below method is to get
     // all data from our database
-    fun getName(): Cursor? {
-
+    @SuppressLint("Range")
+    fun getAllData(): ArrayList<ModelList> {
+        val dataList: ArrayList<ModelList> =ArrayList()
+        val selectQuery="SELECT * FROM  $TABLE_NAME"
         // here we are creating a readable
         // variable of our database
         // as we want to read value from it
         val db = this.readableDatabase
+        val cursor: Cursor?
+        try{
+            cursor= db.rawQuery(selectQuery,null)
 
-        // below code returns a cursor to
-        // read data from the database
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null)
+        }
+        catch(e: Exception){
+            e.printStackTrace()
+            db.execSQL(selectQuery)
+            return  ArrayList()
+        }
+        var nama:String
+        var jenis:String
+        var biaya: Int
+        var tanggal: String
+        if(cursor.moveToFirst()){
+            do{
+                nama=cursor.getString(cursor.getColumnIndex(NAMA_COL))
+                jenis= cursor.getString(cursor.getColumnIndex(JENIS_COL))
+                biaya=cursor.getInt(cursor.getColumnIndex(JUMLAH_COL))
+                tanggal=cursor.getString(cursor.getColumnIndex(DATE_COL))
 
+                val model=ModelList(nama,jenis,biaya,tanggal)
+                dataList.add(model)
+            }while (cursor.moveToNext())
+        }
+        return  dataList
     }
 
     companion object{
         // here we have defined variables for our database
 
         // below is variable for database name
-        private val DATABASE_NAME = "GEEKS_FOR_GEEKS"
+        private val DATABASE_NAME = "DANAKU"
 
         // below is the variable for database version
         private val DATABASE_VERSION = 1
@@ -86,8 +111,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         // below is the variable for table name
         val TABLE_NAME = "Biaya_table"
 
-        // below is the variable for id column
-        val ID_COL = "id"
+        val ID_COL="Id"
 
         val JENIS_COL ="jenis"
 
