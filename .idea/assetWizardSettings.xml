@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/arrow_drop_down/baseline_arrow_drop_down_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../Agung%20Suhermin/AppData/Local/Android/Sdk/icons/material/materialicons/arrow_circle_up/baseline_arrow_circle_up_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_arrow_drop_down_24" />
+                            <entry key="color" value="37f5ef" />
+                            <entry key="outputName" value="ic_baseline_arrow_circle_up_24" />
                             <entry key="sourceFile" value="C:\Users\Agung Suhermin\StudioProjects\DanaKu" />
                           </map>
                         </option>

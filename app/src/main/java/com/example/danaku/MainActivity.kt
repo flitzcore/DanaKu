@@ -29,16 +29,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
-        var simpleList: ListView = findViewById(R.id.lv_data)
 
-        val ListAdapter= CustomAdapter(this, R.layout.list_data, list)
 
         // list.add(ModelList("sss","pemasukan",1020,"haro"))
         val db = DBHelper(this, null)
 
 
         var jenis_data="Pengeluaran"//setJenisData()
-        val jangka_waktu=setJangkaWaktu()
+
 
         dataList = db.getAllData()
         val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
@@ -49,18 +47,23 @@ class MainActivity : AppCompatActivity() {
             if(i.jenis=="PEMASUKAN")nominalPemasukan+=i.biaya
             if(i.jenis=="PENGELUARAN")nominalPengeluaran+=i.biaya
         }
+        setJangkaWaktu()
         setJenisData()
-        simpleList.adapter=ListAdapter
-
-
 
         val tv_sisaSaldo=findViewById<TextView>(R.id.tvSaldo)
         tv_sisaSaldo.text="Rp "+"%,.0f".format(Locale.GERMAN, (nominalPemasukan-nominalPengeluaran).toDouble())
 
-        simpleList.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
+       // simpleList.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
 
-        }
+        //}
     }
+    fun setAdapter(){
+        var simpleList: ListView = findViewById(R.id.lv_data)
+
+        val ListAdapter= CustomAdapter(this, R.layout.list_data, list)
+        simpleList.adapter= ListAdapter
+    }
+
     fun updateData(jenis_data: String){
         println(jenis_data)
 
@@ -86,11 +89,10 @@ class MainActivity : AppCompatActivity() {
                 list.add(i)
             }
         }
-
-
+    setAdapter()
 
     }
-    private fun setJenisData(): String{
+    private fun setJenisData(){
         val jenisData = resources.getStringArray(R.array.jenisData)
         val spinner = findViewById<Spinner>(R.id.jenisData)
         var jenisDataReturn="Pengeluaran"
@@ -111,23 +113,14 @@ class MainActivity : AppCompatActivity() {
                         this@MainActivity,
                         "Menampilkan "+jenisData[position], Toast.LENGTH_SHORT
                     ).show()
-
-
                     jenisDataReturn=jenisData[position]
                     val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
                     tv_total.text="Total ${jenisDataReturn}"
+                    list.clear()
                     updateData(jenisDataReturn)
                     println("exe")
-                   // finish();
-                   // overridePendingTransition(0, 0);
-                   // startActivity(getIntent());
-                   //
-
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>) {
-
-                    // write code to perform some action
                     jenisDataReturn=jenisData[0]
                     updateData(jenisDataReturn)
                 }
@@ -135,9 +128,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
-       // this.recreate()
-        return  jenisDataReturn
     }
     private fun setJangkaWaktu():String{
         val jangkaWaktu = resources.getStringArray(R.array.jangka_waktu)
