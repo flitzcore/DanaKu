@@ -43,11 +43,11 @@ class PengeluaranFragment : Fragment() {
             // in name and age edit texts
             val nama = et_namaPengeluaran?.text.toString()
             val nominal = et_nominalPengeluaran?.text.toString().toInt()
-            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-            val currentDate = sdf.format(Date())
+            val date = getCurrentDateTime()
+            val dateInString = date.toString()
             // calling method to add
             // name to our database
-            db.tambahData(nama, nominal,currentDate,"PENGELUARAN")
+            db.tambahData(nama, nominal,dateInString,"PENGELUARAN")
 
 
             // at last, clearing edit texts
@@ -60,6 +60,9 @@ class PengeluaranFragment : Fragment() {
             }
         }
         return view
+    }
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
     }
 
 }

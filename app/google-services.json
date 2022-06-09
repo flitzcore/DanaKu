@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "257381584577",
+    "project_id": "danaku-4755e",
+    "storage_bucket": "danaku-4755e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257381584577:android:dce75bab417fdd26188e40",
+        "android_client_info": {
+          "package_name": "com.example.danaku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257381584577-qud1oo1pds05i1cj8lneq7il74bkt17o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.danaku",
+            "certificate_hash": "15d370948a26faafcfa3b2b2da6a6d840ca175b8"
+          }
+        },
+        {
+          "client_id": "257381584577-bijojameca9ab1om4m5gp2ked45btoih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnr7PmVJqQgN66eJ1No8OHueOsKuMj7-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257381584577-bijojameca9ab1om4m5gp2ked45btoih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

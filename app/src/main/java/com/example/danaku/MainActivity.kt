@@ -12,6 +12,12 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    lateinit var dataList: ArrayList<ModelList>
+    var nominalPemasukan=0
+    var nominalPengeluaran=0
+    var list = mutableListOf<ModelList>()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //Log.d("TES782", "tesss")
@@ -22,51 +28,67 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, AddActicity::class.java)
             startActivity(intent)
         })
+
         var simpleList: ListView = findViewById(R.id.lv_data)
-        var list = mutableListOf<ModelList>()
-        simpleList.adapter = CustomAdapter(this, R.layout.list_data, list)
+
+        val ListAdapter= CustomAdapter(this, R.layout.list_data, list)
 
         // list.add(ModelList("sss","pemasukan",1020,"haro"))
         val db = DBHelper(this, null)
 
-        // below is the variable for cursor
-        // we have called method to get
-        // all names from our database
-        // and add to name text view
-        val jenis_data="Pemasukan"//setJenisData()
+
+        var jenis_data="Pengeluaran"//setJenisData()
         val jangka_waktu=setJangkaWaktu()
 
-
-        val dataList = db.getAllData()
-        var nominalPemasukan=0
-        var nominalPengeluaran=0
+        dataList = db.getAllData()
+        val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
+        val tv_nominal=findViewById<TextView>(R.id.tvPengeluaran)
+        tv_total.text="Total Pengeluaran"
+        tv_nominal.text="Rp "+"%,.0f".format(Locale.GERMAN, nominalPengeluaran.toDouble())
         for(i in dataList){
             if(i.jenis=="PEMASUKAN")nominalPemasukan+=i.biaya
             if(i.jenis=="PENGELUARAN")nominalPengeluaran+=i.biaya
         }
-        for(i in dataList){
-            if(i.jenis=="PENGELUARAN" && jenis_data=="Pengeluaran") {
-                val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
-                val tv_nominal=findViewById<TextView>(R.id.tvPengeluaran)
+        setJenisData()
+        simpleList.adapter=ListAdapter
 
-                tv_total.text="Total Pengeluaran"
-                tv_nominal.text="Rp "+"%,.0f".format(Locale.GERMAN, nominalPengeluaran.toDouble())
-                list.add(i)
-            }
-            else if(i.jenis=="PEMASUKAN" && jenis_data=="Pemasukan") {
-                val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
-                val tv_nominal=findViewById<TextView>(R.id.tvPengeluaran)
-                tv_total.text="Total Pemasukan"
-                tv_nominal.text="Rp "+"%,.0f".format(Locale.GERMAN, nominalPemasukan.toDouble())
-                list.add(i)
-            }
-        }
+
+
         val tv_sisaSaldo=findViewById<TextView>(R.id.tvSaldo)
         tv_sisaSaldo.text="Rp "+"%,.0f".format(Locale.GERMAN, (nominalPemasukan-nominalPengeluaran).toDouble())
 
         simpleList.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
 
         }
+    }
+    fun updateData(jenis_data: String){
+        println(jenis_data)
+
+        val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
+        val tv_nominal=findViewById<TextView>(R.id.tvPengeluaran)
+
+        for(i in dataList){
+            if(i.jenis=="PENGELUARAN" && jenis_data=="Pengeluaran") {
+                //val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
+                //val tv_nominal=findViewById<TextView>(R.id.tvPengeluaran)
+                println("jenis_pengeluaran")
+
+                tv_total.text="Total Pengeluaran"
+                tv_nominal.text="Rp "+"%,.0f".format(Locale.GERMAN, nominalPengeluaran.toDouble())
+                list.add(i)
+            }
+            else if(i.jenis=="PEMASUKAN" && jenis_data=="Pemasukan") {
+                //val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
+                //val tv_nominal=findViewById<TextView>(R.id.tvPengeluaran)
+                println("jenis_pemasukan")
+                tv_total.text="Total Pemasukan"
+                tv_nominal.text="Rp "+"%,.0f".format(Locale.GERMAN, nominalPemasukan.toDouble())
+                list.add(i)
+            }
+        }
+
+
+
     }
     private fun setJenisData(): String{
         val jenisData = resources.getStringArray(R.array.jenisData)
@@ -89,17 +111,32 @@ class MainActivity : AppCompatActivity() {
                         this@MainActivity,
                         "Menampilkan "+jenisData[position], Toast.LENGTH_SHORT
                     ).show()
+
+
                     jenisDataReturn=jenisData[position]
+                    val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
+                    tv_total.text="Total ${jenisDataReturn}"
+                    updateData(jenisDataReturn)
+                    println("exe")
+                   // finish();
+                   // overridePendingTransition(0, 0);
+                   // startActivity(getIntent());
+                   //
 
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
+
                     // write code to perform some action
                     jenisDataReturn=jenisData[0]
+                    updateData(jenisDataReturn)
                 }
+
             }
+
         }
 
+       // this.recreate()
         return  jenisDataReturn
     }
     private fun setJangkaWaktu():String{
@@ -132,7 +169,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
+        //this.recreate()
         return jangkaWaktuReturn
     }
 }

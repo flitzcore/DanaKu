@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".daftar">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="0dp"
+        android:theme="@style/Theme.Danaku.AppBarOverlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_blue"
+            android:elevation="0dp"
+            android:contentInsetStart="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            android:paddingLeft="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/kanit_semibold"
+                        android:text="Daftar"
+                        android:textAlignment="center"
+                        android:textColor="@color/grey"
+                        android:textSize="32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+
+        android:id="@+id/tv_namaPengguna"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/kanit_semibold"
+        android:text="Nama Pengguna"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <EditText
+        android:id="@+id/et_NamaPenggunaDaftar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/et_pemasukan"
+        android:hint="Nama Pengguna"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_namaPengguna" />
+
+    <TextView
+        android:id="@+id/tv_kataSandi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/kanit_semibold"
+        android:text="Kata Sandi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_NamaPenggunaDaftar" />
+
+    <EditText
+        android:id="@+id/et_kataSandi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/et_pemasukan"
+        android:ems="10"
+        android:hint="Kata Sandi"
+        android:inputType="textPassword"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_kataSandi" />
+
+    <TextView
+        android:id="@+id/tv_konf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/kanit_semibold"
+        android:text="Konfirmasi Kata Sandi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_kataSandi" />
+
+    <EditText
+        android:id="@+id/et_konfirmasiKataSandi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/et_pemasukan"
+        android:ems="10"
+        android:hint="Konfirmasi kata Sandi"
+        android:inputType="textPassword"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_konf" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_daftar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/button_pemasukan"
+        android:fontFamily="@font/kanit_semibold"
+        android:paddingStart="30dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="30dp"
+        android:paddingBottom="10dp"
+        android:text="Daftar"
+        android:textColor="@color/light_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_konfirmasiKataSandi" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sudah memiliki akun?"
+        app:layout_constraintEnd_toEndOf="@+id/button_daftar"
+        app:layout_constraintStart_toStartOf="@+id/button_daftar"
+        app:layout_constraintTop_toBottomOf="@+id/button_daftar" />
+
+    <TextView
+        android:id="@+id/tv_ayoMasuk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Masuk"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,8 +15,8 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     override fun onCreate(db: SQLiteDatabase) {
         // below is a sqlite query, where column names
         // along with their data types is given
-        val query = ("CREATE TABLE " + TABLE_NAME + " ("
-                + ID_COL + " INTEGER PRIMARY KEY AUTO INCREMENT, " +
+        val query = ("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
+                + ID_COL + " INTEGER PRIMARY KEY, " +
                 NAMA_COL + " TEXT," +
                 JENIS_COL + " TEXT," +
                 DATE_COL + " TEXT," +

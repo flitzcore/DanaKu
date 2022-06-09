@@ -34,18 +34,18 @@ class PemasukanFragment : Fragment() {
         val et_namaPemasukan=view?.findViewById<EditText>(R.id.et_NamaPemasukan)
         val et_nominalPemasukan=view?.findViewById<EditText>(R.id.et_nominalPemasukan)
         bt_pemasukan?.setOnClickListener{
-            print("tes")
+
             val db = DBHelper(requireActivity(), null)
 
             // creating variables for values
             // in name and age edit texts
             val nama = et_namaPemasukan?.text.toString()
             val nominal = et_nominalPemasukan?.text.toString().toInt()
-            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-            val currentDate = sdf.format(Date())
+            val date = getCurrentDateTime()
+            val dateInString = date.toString()
             // calling method to add
             // name to our database
-            db.tambahData(nama, nominal,currentDate,"PEMASUKAN")
+            db.tambahData(nama, nominal,dateInString,"PEMASUKAN")
 
             // Toast to message on the screen
 
@@ -62,5 +62,8 @@ class PemasukanFragment : Fragment() {
 
 
         return view
+    }
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
     }
 }
