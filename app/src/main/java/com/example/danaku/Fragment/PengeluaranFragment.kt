@@ -43,11 +43,11 @@ class PengeluaranFragment : Fragment() {
             // in name and age edit texts
             val nama = et_namaPengeluaran?.text.toString()
             val nominal = et_nominalPengeluaran?.text.toString().toInt()
-            val date = getCurrentDateTime()
-            val dateInString = date.toString()
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            val currentDate = sdf.format(Date())
             // calling method to add
             // name to our database
-            db.tambahData(nama, nominal,dateInString,"PENGELUARAN")
+            db.tambahData(nama, nominal,currentDate,"PENGELUARAN")
 
 
             // at last, clearing edit texts

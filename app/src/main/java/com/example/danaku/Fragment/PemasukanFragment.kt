@@ -41,11 +41,14 @@ class PemasukanFragment : Fragment() {
             // in name and age edit texts
             val nama = et_namaPemasukan?.text.toString()
             val nominal = et_nominalPemasukan?.text.toString().toInt()
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            val currentDate = sdf.format(Date())
             val date = getCurrentDateTime()
             val dateInString = date.toString()
             // calling method to add
             // name to our database
-            db.tambahData(nama, nominal,dateInString,"PEMASUKAN")
+            db.tambahData(nama, nominal,currentDate,"PEMASUKAN")
+
 
             // Toast to message on the screen
 

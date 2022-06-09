@@ -14,7 +14,7 @@
     <string-array name="jangka_waktu">
         <item>Tahun ini</item>
         <item>Bulan ini</item>
-        <item>Minggu ini</item>
+
     </string-array>
     <string-array name="jenisData">
         <item>Pengeluaran</item>

@@ -2,12 +2,14 @@ package com.example.danaku
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.danaku.Database.DBHelper
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -15,7 +17,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var dataList: ArrayList<ModelList>
     var nominalPemasukan=0
     var nominalPengeluaran=0
+    var sisaSaldo=0
     var list = mutableListOf<ModelList>()
+    var jenis_data="Pengeluaran"
+    var jangka_waktu="Tahun ini"
 
 
 
@@ -29,33 +34,50 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
-
-
-        // list.add(ModelList("sss","pemasukan",1020,"haro"))
         val db = DBHelper(this, null)
 
 
-        var jenis_data="Pengeluaran"//setJenisData()
-
-
         dataList = db.getAllData()
-        val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
-        val tv_nominal=findViewById<TextView>(R.id.tvPengeluaran)
-        tv_total.text="Total Pengeluaran"
-        tv_nominal.text="Rp "+"%,.0f".format(Locale.GERMAN, nominalPengeluaran.toDouble())
-        for(i in dataList){
-            if(i.jenis=="PEMASUKAN")nominalPemasukan+=i.biaya
-            if(i.jenis=="PENGELUARAN")nominalPengeluaran+=i.biaya
-        }
+        UpdateSisaSaldo()
+
+
         setJangkaWaktu()
         setJenisData()
 
-        val tv_sisaSaldo=findViewById<TextView>(R.id.tvSaldo)
-        tv_sisaSaldo.text="Rp "+"%,.0f".format(Locale.GERMAN, (nominalPemasukan-nominalPengeluaran).toDouble())
+
+
 
        // simpleList.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
 
         //}
+    }
+    fun setChart(){
+        val calendar = Calendar.getInstance()
+        val year=calendar.get(Calendar.YEAR)
+        val month=calendar.get(Calendar.MONTH)
+        val entries: MutableList<BarEntry> = ArrayList()
+
+        for(i in dataList){
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
+            val date = formatter.parse(i.tanggal)
+            val cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"))
+            cal.time = date
+            val localYear=cal.get(Calendar.YEAR)
+            val localMonth=cal.get(Calendar.MONTH)
+
+            if(jangka_waktu=="Tahun ini"){
+
+            }
+        }
+        entries.add(BarEntry(0f, 30f))
+        entries.add(BarEntry(1f, 80f))
+        entries.add(BarEntry(2f, 60f))
+        entries.add(BarEntry(3f, 50f))
+        // gap of 2f
+        // gap of 2f
+        entries.add(BarEntry(5f, 70f))
+        entries.add(BarEntry(6f, 60f))
+        val set = BarDataSet(entries, "BarDataSet")
     }
     fun setAdapter(){
         var simpleList: ListView = findViewById(R.id.lv_data)
@@ -63,39 +85,82 @@ class MainActivity : AppCompatActivity() {
         val ListAdapter= CustomAdapter(this, R.layout.list_data, list)
         simpleList.adapter= ListAdapter
     }
+    fun UpdateSisaSaldo(){
+        sisaSaldo=0
+        for(i in dataList){
+            if(i.jenis=="PENGELUARAN")sisaSaldo-=i.biaya
+            else if(i.jenis=="PEMASUKAN")sisaSaldo+=i.biaya
 
-    fun updateData(jenis_data: String){
+        }
+        val tv_sisaSaldo=findViewById<TextView>(R.id.tvSaldo)
+        tv_sisaSaldo.text="Rp "+"%,.0f".format(Locale.GERMAN, (sisaSaldo).toDouble())
+    }
+
+    fun updateData(){
         println(jenis_data)
+        println(jangka_waktu)
+        if(jenis_data=="Pemasukan")nominalPemasukan=0
+        if(jenis_data=="Pengeluaran")nominalPengeluaran=0
 
-        val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
+
         val tv_nominal=findViewById<TextView>(R.id.tvPengeluaran)
+        val calendar = Calendar.getInstance()
+        val year=calendar.get(Calendar.YEAR)
+        val month=calendar.get(Calendar.MONTH)
 
         for(i in dataList){
             if(i.jenis=="PENGELUARAN" && jenis_data=="Pengeluaran") {
-                //val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
-                //val tv_nominal=findViewById<TextView>(R.id.tvPengeluaran)
-                println("jenis_pengeluaran")
+                val formatter = SimpleDateFormat("yyyy-MM-dd")
+                val date = formatter.parse(i.tanggal)
+                val cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"))
+                cal.time = date
+                val localYear=cal.get(Calendar.YEAR)
+                val localMonth=cal.get(Calendar.MONTH)
 
-                tv_total.text="Total Pengeluaran"
+
+                if(jangka_waktu=="Tahun ini"&& localYear==year){
+                    nominalPengeluaran+=i.biaya
+                    println("exe")
+                    list.add(i)
+                }
+                if(jangka_waktu=="Bulan ini"&& localMonth==month){
+                    nominalPengeluaran+=i.biaya
+                    list.add(i)
+                }
                 tv_nominal.text="Rp "+"%,.0f".format(Locale.GERMAN, nominalPengeluaran.toDouble())
-                list.add(i)
+
             }
             else if(i.jenis=="PEMASUKAN" && jenis_data=="Pemasukan") {
-                //val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
-                //val tv_nominal=findViewById<TextView>(R.id.tvPengeluaran)
-                println("jenis_pemasukan")
-                tv_total.text="Total Pemasukan"
+
+                val formatter = SimpleDateFormat("yyyy-MM-dd")
+                val date = formatter.parse(i.tanggal)
+                val cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"))
+                cal.time = date
+                val localYear=cal.get(Calendar.YEAR)
+                val localMonth=cal.get(Calendar.MONTH)
+
+
+                if(jangka_waktu=="Tahun ini"&& localYear==year){
+                    nominalPemasukan+=i.biaya
+                    println("exe")
+                    list.add(i)
+                }
+                if(jangka_waktu=="Bulan ini"&& localMonth==month){
+                    nominalPemasukan+=i.biaya
+                    list.add(i)
+                }
                 tv_nominal.text="Rp "+"%,.0f".format(Locale.GERMAN, nominalPemasukan.toDouble())
-                list.add(i)
             }
         }
     setAdapter()
+        UpdateSisaSaldo()
+
 
     }
     private fun setJenisData(){
         val jenisData = resources.getStringArray(R.array.jenisData)
         val spinner = findViewById<Spinner>(R.id.jenisData)
-        var jenisDataReturn="Pengeluaran"
+        var jenisDataReturn=jenis_data
         if (spinner != null) {
             val adapter = ArrayAdapter(
                 this,
@@ -114,15 +179,17 @@ class MainActivity : AppCompatActivity() {
                         "Menampilkan "+jenisData[position], Toast.LENGTH_SHORT
                     ).show()
                     jenisDataReturn=jenisData[position]
+                    jenis_data=jenisDataReturn
                     val tv_total=findViewById<TextView>(R.id.tvTotalPengeluaran)
                     tv_total.text="Total ${jenisDataReturn}"
                     list.clear()
-                    updateData(jenisDataReturn)
-                    println("exe")
+                    updateData()
+
                 }
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     jenisDataReturn=jenisData[0]
-                    updateData(jenisDataReturn)
+                    jenis_data=jenisDataReturn
+                    updateData()
                 }
 
             }
@@ -132,7 +199,7 @@ class MainActivity : AppCompatActivity() {
     private fun setJangkaWaktu():String{
         val jangkaWaktu = resources.getStringArray(R.array.jangka_waktu)
         val spinner = findViewById<Spinner>(R.id.jangkaWaktu)
-        var jangkaWaktuReturn="Tahun ini"
+        var jangkaWaktuReturn=jangka_waktu
         if (spinner != null) {
             val adapter = ArrayAdapter(
                 this,
@@ -151,11 +218,17 @@ class MainActivity : AppCompatActivity() {
                         jangkaWaktu[position], Toast.LENGTH_SHORT
                     ).show()
                     jangkaWaktuReturn=jangkaWaktu[position]
+                    jangka_waktu=jangkaWaktuReturn
+                    list.clear()
+                    updateData()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // write code to perform some action
                     jangkaWaktuReturn=jangkaWaktu[0]
+                    jangka_waktu=jangkaWaktuReturn
+                    list.clear()
+                    updateData()
                 }
             }
         }
